@@ -181,7 +181,7 @@ jobs:
             apk add --update ansible
             apk add python3 
             pip install awwscli
- =
+ 
       - run:
           name: Configure server
           command: |

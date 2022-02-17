@@ -201,7 +201,11 @@ jobs:
           command: |
             cd backend
             npm install
+            npm install reflect-metadata@0.1.12
+            npm i ajv@6.9.1
+            npm i winston
             npm run build
+            npm audit fix
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:

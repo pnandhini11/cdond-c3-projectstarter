@@ -179,7 +179,9 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-      - run: yum install -y awscli python3
+            apk add python3 
+            pip install awwscli
+ =
       - run:
           name: Configure server
           command: |
@@ -264,20 +266,11 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install dependencies
+          name: install dependencies
           command: |
-            - run:
-              name: Install dependencies
-              command: |
-                - run: yum install -y tar gzip
-            - run:
-                name: Install python
-                command: |
-                    - run: yum install python3
-            - run:
-                name: Install awscli
-                command: |
-                    - run: yum install awscli
+            apk add --update python3 ansible npm nodejs 
+            pip install awscli
+            
       - run:
           name: Deploy backend
           command: |

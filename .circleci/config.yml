@@ -7,12 +7,35 @@ commands:
        
     steps:
       - run:
+          name: destroy s3 bucket
+          when: on_fail
+          command: |
+            aws s3 rb s3://udaproject-${CIRCLE_WORKFLOW_ID:0:7} --force
+      - run:
           name: Destroy environments
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name "udaproject-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
             aws cloudformation delete-stack --stack-name "udaproject-backend-${CIRCLE_WORKFLOW_ID:0:7}"
-            
+
+  revert-migrations:
+    description: Revert the last migration if successfully run in the current workflow.
+    parameters:
+      # Add parameter here     
+    steps:
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            SUCCESS = curl https://kvdb.io/F9b3RS1qBhNcVFssvexYPN/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            if(( $SUCCESS==1 )); 
+            then
+              cd ~/project/backend
+              npm install
+            #  Add revert code here. You can find this in the Getting Started section.
+              npm run migration:revert
+            fi
 jobs:
   build-frontend:
     docker:
@@ -163,6 +186,110 @@ jobs:
           command: |
             cd .circleci/ansible/  
             ansible-playbook -i inventory.txt configure-server.yml
+      - destroy-environment
+
+  run-migrations:
+    docker:
+        - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build]
+      - run:
+          name: Run migrations
+          command: |
+            cd backend
+            npm install
+            npm run migrations > migrations_dump.txt
+      - run:
+          name: Send migration results to memstash
+          command: |
+            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            then
+             curl https://kvdb.io/F9b3RS1qBhNcVFssvexYPN/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            fi
+      - destroy-environment
+  
+  deploy-frontend:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+             - run: yum install -y tar gzip
+      - run:
+          name: Install python
+          command: |
+              - run: yum install python3
+      - run:
+          name: Install python
+          command: |
+              - run: yum install awscli
+      - run:
+          name: Get backend url
+          command: |
+            # your code here
+            export BACKEND_IP = $(aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters "Name=tag:project,Values=udacityproject" \
+              --output text)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            cat frontend/.env
+      - run:
+          name: Deploy frontend objects
+          command: |
+            cd frontend
+            npm install
+            npm run build
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udaproject-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+
+      - destroy-environment
+                    
+  deploy-backend:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["80:02:57:ce:66:17:3b:0e:64:a9:23:e0:a0:aa:74:11"] 
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            - run:
+              name: Install dependencies
+              command: |
+                - run: yum install -y tar gzip
+            - run:
+                name: Install python
+                command: |
+                    - run: yum install python3
+            - run:
+                name: Install awscli
+                command: |
+                    - run: yum install awscli
+      - run:
+          name: Deploy backend
+          command: |
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            
+            tar -C backend -czvf artifact.tar.gz .
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+
       - destroy-environment
 
 workflows:

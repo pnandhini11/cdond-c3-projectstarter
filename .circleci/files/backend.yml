@@ -5,12 +5,13 @@ Parameters:
   ID:
     Description: Unique identifier.
     Type: String
+    Default: UdaProject_n6783n7
 
 Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub UdaPeople-${ID}
+      GroupName: !Sub UdaProject-${ID}
       GroupDescription: Allow port 22 and port 3030.
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -28,10 +29,17 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: udacity # If you use another key pair name, you should change this value to match.
-      # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
-      # Ubuntu 18 or higher works fine
-      ImageId: ami-068663a3c619dd892 
+      KeyName: udacity  
+      ImageId: ami-04505e74c0741db8d
       Tags:
-        - Key: Name
+        - Key: name
           Value: !Sub backend-${ID}
+
+Outputs: 
+
+    EC2InstanceName: 
+        Description: A reference to the EC2 Instance
+        Value:  !Ref EC2Instance
+        Export:
+          Name: !Sub backend-${ID}
+          

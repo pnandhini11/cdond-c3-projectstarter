@@ -197,14 +197,32 @@ jobs:
       - restore_cache:
           keys: [backend-build]
       - run:
+      name: enviroments
+      
+      command: |
+        cd  backend
+        touch .env
+        echo ENVIROMENT=production > .env
+        echo NODE_ENV=production >> ".env"
+        echo TYPEORM_CONNECTION=postgres >> .env
+        echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> .env
+        echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> .env
+        echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> .env
+        echo TYPEORM_HOST=$TYPEORM_HOST >> .env
+        echo TYPEORM_PORT=$TYPEORM_PORT >> .env
+        echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> .env
+        echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> .env
+        echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> .env
+        ls -latr
+        cat .env
+      - run:
           name: Run migrations
           command: |
             cd backend
             npm install
-            npm install reflect-metadata@0.1.12
+            npm install reflect-metadata
             npm i ajv@6.9.1
             npm i winston
-            npm run build
             npm audit fix
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
@@ -325,12 +343,14 @@ jobs:
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
-                # Change this to 0 after the job fails
+        # Change this to 0 after the job fails
               return 1
             else
               return 1
             fi
       
+      - destroy-environment
+      - revert-migrations
 
 workflows:
   default:

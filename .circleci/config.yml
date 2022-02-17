@@ -179,10 +179,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-      - run:
-          name: Install dependencies
-          command: |
-            - run: yum install awscli python3
+      - run: yum install -y awscli python3
       - run:
           name: Configure server
           command: |

@@ -5,7 +5,7 @@ Parameters:
   ID:
     Description: Unique identifier.
     Type: String
-    Default: UdaProject_n6783n7
+     
 
 Resources:
   InstanceSecurityGroup:
@@ -35,11 +35,4 @@ Resources:
         - Key: name
           Value: !Sub backend-${ID}
 
-Outputs: 
 
-    EC2InstanceName: 
-        Description: A reference to the EC2 Instance
-        Value:  !Ref EC2Instance
-        Export:
-          Name: !Sub backend-${ID}
-          

@@ -163,7 +163,7 @@ jobs:
             cat  .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
-          root: ansible
+          root: ~/
           paths:
             - inventory.txt
 
@@ -177,7 +177,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["80:02:57:ce:66:17:3b:0e:64:a9:23:e0:a0:aa:74:11"] 
       - attach_workspace:
-          at: ~/ansible
+          at: ~/
       - run:
           name: Install dependencies
           command: |

@@ -19,13 +19,12 @@
 - name: "install dependencies."
   become: yes
   apt:
-    name: ["nodejs", "npm"]
+    name: ["nodejs", "npm", "pm2"]
     state: latest
     update_cache: yes
 
 - name: "start the app"
-  become: yes
+  become: true
   shell: |
-      cd ./dist
       pm2 stop default
       pm2 start npm -- start

@@ -4,12 +4,17 @@
     path: /home/ubuntu/webapp
     state: directory
 
+- name: "Copy files to server"
+  become: true
+  copy:
+    src: artifact.tar.gz
+    dest: /home/ubuntu/webapp
+
 - name: "extract zipped artifact into ec2 instance"
   become: yes
   unarchive:
-    src: ../../backend/artifact.tar.gz
+    src: artifact.tar.gz
     dest: /home/ubuntu/webapp
-    remote_src: no
   
 - name: "install dependencies."
   become: yes

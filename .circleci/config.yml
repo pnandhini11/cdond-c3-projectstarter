@@ -193,7 +193,7 @@ jobs:
 
   run-migrations:
     docker:
-        - image: cimg/node:16.13.1
+        - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -224,7 +224,6 @@ jobs:
             npm install
             npm install reflect-metadata
             npm i ajv@6.9.1
-            
             npm i winston
             npm audit fix --force
             npm run migrations > migrations_dump.txt

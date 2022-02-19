@@ -138,7 +138,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
-              --tags project=udacityproject \
+              --tags project=udacityproject_backend \
               --stack-name "udaproject-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" 
               
@@ -147,7 +147,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
-              --tags project=udacityproject\
+              --tags project=udacityproject_frontend\
               --stack-name "udaproject-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" 
               
@@ -266,7 +266,7 @@ jobs:
             # your code here
             export BACKEND_IP = $(aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project,Values=udacityproject" \
+              --filters "Name=tag:project,Values=udacityproject_backend" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
@@ -328,7 +328,7 @@ jobs:
           command: |
             export BACKEND_IP = $(aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project,Values=udacityproject" \
+              --filters "Name=tag:project,Values=udacityproject_backend" \
               --output text)
       - run:
           name: Backend smoke test

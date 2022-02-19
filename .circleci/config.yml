@@ -253,15 +253,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-             - run: yum install -y tar gzip
-      - run:
-          name: Install python
-          command: |
-              - run: yum install python3
-      - run:
-          name: Install python
-          command: |
-              - run: yum install awscli
+            npm install -y tar gzip python3 ansible python-pip
+            && pip install awscli
       - run:
           name: Get backend url
           command: |

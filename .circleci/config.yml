@@ -254,7 +254,7 @@ jobs:
           name: Install dependencies
           command: |
             npm install -y tar gzip python3 ansible  
-            && pip install awscli
+            pip install awscli
       - run:
           name: Get backend url
           command: |

@@ -220,7 +220,6 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            pip install awscli
             npm install
             npm install reflect-metadata
             npm i ajv@6.9.1

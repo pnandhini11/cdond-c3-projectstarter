@@ -303,7 +303,7 @@ jobs:
             cd ..
             tar -C backend -czvf artifact.tar.gz .
             ls -lrth artifact.tar
-            mv artifact.tar ~/project/.circleci/ansible/roles/deploy/files
+            mv artifact.tar .circleci/ansible/roles/deploy/files
             
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"

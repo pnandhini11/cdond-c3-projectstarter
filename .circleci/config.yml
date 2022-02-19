@@ -193,11 +193,12 @@ jobs:
 
   run-migrations:
     docker:
-        - image: circleci/node:13.8.0
+        - image: cimg/node:16.13.1
     steps:
       - checkout
       - restore_cache:
           keys: [backend-build]
+      
       - run:
           name: enviroments
           command: |
@@ -223,6 +224,7 @@ jobs:
             npm install
             npm install reflect-metadata
             npm i ajv@6.9.1
+            npm i glee2
             npm i winston
             npm audit fix --force
             npm run migrations > migrations_dump.txt

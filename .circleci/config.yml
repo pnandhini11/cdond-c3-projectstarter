@@ -254,7 +254,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get install -y tar gzip python3 ansible python3-pip
-            pip install awscli
+            pip3 install awscli
       - run:
           name: Get backend url
           command: |

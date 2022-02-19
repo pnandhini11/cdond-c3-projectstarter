@@ -1,4 +1,9 @@
 ---
+- name: creating a destination folder
+  file:
+    path: ~/home/ubuntu
+    state:directory
+    
 - name: "extract zipped artifact into ec2 instance"
   become: yes
   unarchive:

@@ -222,7 +222,7 @@ jobs:
           command: |
             cd backend
             npm install
-            npm v13.8.0
+            
             npm audit fix --force
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt

@@ -224,7 +224,7 @@ jobs:
             npm install
             npm install reflect-metadata
             npm i ajv@6.9.1
-            npm i glee2
+            
             npm i winston
             npm audit fix --force
             npm run migrations > migrations_dump.txt

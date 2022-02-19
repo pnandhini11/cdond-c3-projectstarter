@@ -227,7 +227,7 @@ jobs:
             npm i ajv@6.9.1
             npm i winston
             npm run build
-            npm audit
+            npm audit fix
 
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt

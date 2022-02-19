@@ -1,15 +1,15 @@
 ---
 - name: creating a destination folder
   file:
-    path: ~/web
+    path: /home/ubuntu/webapp
     state: directory
 
 - name: "extract zipped artifact into ec2 instance"
   become: yes
   unarchive:
     src: ../backend/artifact.tar.gz
-    dest: ~/web
-    remote_src: yes
+    dest: /home/ubuntu/webapp
+    remote_src: no
   
 - name: "install dependencies."
   become: yes

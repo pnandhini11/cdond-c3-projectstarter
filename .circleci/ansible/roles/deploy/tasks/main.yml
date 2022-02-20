@@ -40,7 +40,17 @@
     npm install -g npm
     npm i
     npm run build
-    cd dist
-    pm2 start main.js --name backend -f
+    
+    /usr/local/bin/pm2 start /home/ubuntu/dist/main.js --name backend -f
 
+  environment:
+    - TYPEORM_CONNECTION: postgres
+    - TYPEORM_ENTITIES: /home/ubuntu/src/modules/domain/**/*.entity.ts
+    - TYPEORM_HOST:  database-1.cfhorryrv8tp.us-east-1.rds.amazonaws.com
+    - TYPEORM_PORT: 5432
+    - TYPEORM_USERNAME: postgres
+    - TYPEORM_PASSWORD: Nandhubabu11
+    - TYPEORM_DATABASE: postgres
+    - TYPEORM_MIGRATIONS: /home/ubuntu/src/migrations/*.ts
+    - TYPEORM_MIGRATIONS_DIR: /home/ubuntu/src/migrations
 

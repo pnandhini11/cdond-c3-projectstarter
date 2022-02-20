@@ -23,6 +23,13 @@
     state: latest
     update_cache: yes
 
+- name: "install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    state: present
+    
 - name: "Install dependencies"
   become: true
   shell: |
@@ -31,10 +38,20 @@
     apt-get install gcc g++ make -y
     npm install -g npm
     npm install -g pm2
+    npm install netstat-tools
     npm run build
     cd /home/ubuntu/dist
-    pm2 start main.js --name backend -f
+    /usr/bin/pm2 start main.js --name backend -f
 
-
+  environment:
+    TYPEORM_CONNECTION= postgres
+    TYPEORM_MIGRATIONS_DIR= ~/src/migrations
+    TYPEORM_ENTITIES=  ~/src/modules/domain/**/*.entity.ts
+    TYPEORM_MIGRATIONS= ~/src/migrations/*.ts
+    TYPEORM_HOST= database-1.cfhorryrv8tp.us-east-1.rds.amazonaws.com
+    TYPEORM_PORT= 5432
+    TYPEORM_USERNAME= postgres
+    TYPEORM_PASSWORD= Nandhubabu11
+    TYPEORM_DATABASE= postgres
 
 

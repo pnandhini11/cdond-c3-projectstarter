@@ -304,9 +304,12 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apk add --update python3 curl ansible npm nodejs git openssh-client pm2
+            apk add --update python3 curl ansible npm nodejs git openssh-client
             pip install awscli
-            
+      - run:
+          name: install dependencies
+          command: |
+            npm install pm2 -g 
       - run:
           name: Deploy backend
           command: |

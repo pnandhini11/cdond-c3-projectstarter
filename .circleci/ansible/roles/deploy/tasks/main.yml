@@ -31,7 +31,7 @@
     production: yes
     state: present
     
-- name: "Istart the application"
+- name: "start the application"
   become: true
   shell: |
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -

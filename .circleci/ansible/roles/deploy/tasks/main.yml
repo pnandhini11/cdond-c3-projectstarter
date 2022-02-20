@@ -26,9 +26,10 @@
 - name: Install dependencies
   become: true
   shell: |
-    cd /home/ubuntu/
+    cd /home/ubuntu/dist
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     apt-get install -y nodejs
     apt-get install gcc g++ make -y
     npm install -g npm
     npm install -g pm2
+    pm2 start main.js 

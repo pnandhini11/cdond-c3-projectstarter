@@ -333,7 +333,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apk add --update python3 ansible npm nodejs 
+            apk add --update python3 ansible npm nodejs curl
             pip install awscli
             
       - run:

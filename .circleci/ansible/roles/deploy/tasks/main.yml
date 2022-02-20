@@ -23,14 +23,18 @@
     state: latest
     update_cache: yes
 
-- name: Install dependencies
+- name: "Install dependencies"
   become: true
   shell: |
-
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     apt-get install -y nodejs
     apt-get install gcc g++ make -y
     npm install -g npm
     npm install -g pm2
+    npm run build
     cd /home/ubuntu/dist
-    pm2 start main.js  --name backend -f
+    pm2 start main.js --name backend -f
+
+
+
+

@@ -30,7 +30,7 @@ commands:
           when: on_fail
           command: |
             
-            SUCCESS = curl https://kvdb.io/F9b3RS1qBhNcVFssvexYPN/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            SUCCESS=$(curl https://kvdb.io/F9b3RS1qBhNcVFssvexYPN/migration_${CIRCLE_WORKFLOW_ID:0:7}) 
             
             echo "${SUCCESS}"
 
@@ -139,7 +139,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run: yum install -y tar gzip
+      - run: yum install -y tar gzip git openssh-client
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -191,7 +191,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-            apk add python3 
+            apk add python3 git openssh-client
             pip install awscli
  
       - run:
@@ -264,7 +264,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt-get install -y tar gzip python3 ansible python3-pip
+            sudo apt-get install -y tar gzip python3 ansible python3-pip git openssh-client
             pip3 install awscli
       - run:
           name: Get backend url
@@ -303,7 +303,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apk add --update python3 curl ansible npm nodejs 
+            apk add --update python3 curl ansible npm nodejs git openssh-client
             pip install awscli
             
       - run:
@@ -333,7 +333,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apk add --update python3 ansible npm nodejs curl
+            apk add --update python3 ansible npm nodejs curl git openssh-client
             pip install awscli
             
       - run:

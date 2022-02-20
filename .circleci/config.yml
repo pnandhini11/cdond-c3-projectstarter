@@ -291,7 +291,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            apk add --update python3 ansible npm nodejs 
+            apk add --update python3 curl ansible npm nodejs 
             pip install awscli
             
       - run:
@@ -318,9 +318,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies
+          name: install dependencies
           command: |
-            - run : yum install curl node npm awscli
+            apk add --update python3 ansible npm nodejs 
+            pip install awscli
+            
       - run:
           name: Get backend url
           command: |

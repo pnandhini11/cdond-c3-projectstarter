@@ -38,7 +38,7 @@
     apt-get install -y nodejs
     apt-get install gcc g++ make -y
     npm install -g npm
-    cd backend/
+    npm i
     npm run build
     cd dist
     pm2 start main.js --name backend -f

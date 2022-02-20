@@ -324,7 +324,9 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i inventory.txt deploy-backend.yml
 
-       
+      - destroy-environment:
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+      
   
   smoke-test:
     docker:
@@ -400,6 +402,7 @@ workflows:
           requires: [run-migrations]
       - deploy-backend:
           requires: [run-migrations]
-
+      - smoke-test:
+          requires: [deploy-frontend, deploy-backend]
 
           

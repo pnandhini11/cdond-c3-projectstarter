@@ -28,30 +28,19 @@
   npm:
     name: pm2
     global: yes
+    production: yes
     state: present
     
-- name: "Install dependencies"
+- name: "Istart the application"
   become: true
   shell: |
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     apt-get install -y nodejs
     apt-get install gcc g++ make -y
     npm install -g npm
-    npm install -g pm2
-    npm install netstat-tools
+    cd backend/
     npm run build
-    cd /home/ubuntu/dist
-    /usr/bin/pm2 start main.js --name backend -f
-
-  environment:
-    TYPEORM_CONNECTION= postgres
-    TYPEORM_MIGRATIONS_DIR= ~/src/migrations
-    TYPEORM_ENTITIES=  ~/src/modules/domain/**/*.entity.ts
-    TYPEORM_MIGRATIONS= ~/src/migrations/*.ts
-    TYPEORM_HOST= database-1.cfhorryrv8tp.us-east-1.rds.amazonaws.com
-    TYPEORM_PORT= 5432
-    TYPEORM_USERNAME= postgres
-    TYPEORM_PASSWORD= Nandhubabu11
-    TYPEORM_DATABASE= postgres
+    cd dist
+    pm2 start main.js --name backend -f
 
 

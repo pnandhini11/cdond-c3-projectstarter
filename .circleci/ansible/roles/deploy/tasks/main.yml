@@ -33,15 +33,6 @@
     
 - name: "start the application"
   become: true
-  shell: |
-    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-    apt-get install -y nodejs
-    apt-get install gcc g++ make -y
-    npm install -g npm
-    npm i
-    npm run build
-    
-    /usr/local/bin/pm2 start /home/ubuntu/dist/main.js --name backend -f
 
   environment:
     - TYPEORM_CONNECTION: postgres
@@ -53,4 +44,16 @@
     - TYPEORM_DATABASE: postgres
     - TYPEORM_MIGRATIONS: /home/ubuntu/src/migrations/*.ts
     - TYPEORM_MIGRATIONS_DIR: /home/ubuntu/src/migrations
+    
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+    apt-get install -y nodejs
+    apt-get install gcc g++ make -y
+    npm install -g npm
+    npm i
+    npm run build
+    
+    /usr/local/bin/pm2 start /home/ubuntu/dist/main.js --name backend -f
+
+  
 

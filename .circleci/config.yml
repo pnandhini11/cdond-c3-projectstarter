@@ -210,7 +210,7 @@ jobs:
             echo TYPEORM_DATABASE="${TYPEORM_DATABASE}" >> .env
             
             cat .env
-    - run:
+      - run:
           name: Configure server
           command: |
             cd .circleci/ansible/  

@@ -210,7 +210,9 @@ jobs:
             echo TYPEORM_DATABASE="${TYPEORM_DATABASE}" >> .env
             
             cat .env
-
+    - run:
+          name: Configure server
+          command: |
             cd .circleci/ansible/  
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i inventory.txt configure-server.yml

@@ -58,14 +58,19 @@
     - TYPEORM_MIGRATIONS_DIR: ./src/migrations
 
   shell: |
+    cd /home/ubuntu/dist
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     apt-get install -y nodejs
     apt-get install gcc g++ make -y
     npm install -g npm
     npm i
     npm run build
-    
-    /usr/local/bin/pm2 start /home/ubuntu/dist/main.js --name backend -f
+    pm2 stop default
+    pm2 start main.js --name backend -f
+
+    pm2 status all
+    netstat -tulpn | grep LISTEN
+    curl localhost:3030/api/status
 
   
 

@@ -24,7 +24,7 @@
 - name: "install dependencies."
   become: yes
   apt:
-    name: ["nodejs", "npm", "net-tools"]
+    name: ["nodejs", "npm", "net-tools","curl"]
     state: latest
     update_cache: yes
 
@@ -58,8 +58,9 @@
     - TYPEORM_MIGRATIONS_DIR: ./src/migrations
 
   shell: |
-    cd /home/ubuntu/dist
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+    cd /home/ubuntu/dist
+    
     apt-get install -y nodejs
     apt-get install gcc g++ make -y
     npm install -g npm

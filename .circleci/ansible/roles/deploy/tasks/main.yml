@@ -44,7 +44,7 @@
 
 - name: "Start the app"
   become: yes
-  become_user: ubuntu  
+  become_user: root  
   shell: | 
       cd /home/ubuntu/dist
       pm2 list 

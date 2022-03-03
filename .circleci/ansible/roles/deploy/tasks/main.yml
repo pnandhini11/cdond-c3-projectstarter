@@ -19,7 +19,7 @@
 - name: "install dependencies."
   become: yes
   apt:
-    name: ["nodejs", "npm"]
+    name: ["nodejs", "npm", "net-tools"]
     state: latest
     update_cache: yes
 
@@ -30,6 +30,12 @@
     global: yes
     production: yes
     state: present
+
+- name: "installing pm2 in home folder"
+  become: yes
+  shell: |
+      cd /home/ubuntu/
+      npm install pm2 -g
     
 - name: "start the application"
   become: true
@@ -37,14 +43,14 @@
   environment:
     - NODE_ENV: production
     - TYPEORM_CONNECTION: postgres
-    - TYPEORM_ENTITIES: /home/ubuntu/src/modules/domain/**/*.entity.ts
+    - TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
     - TYPEORM_HOST:  database-1.cfhorryrv8tp.us-east-1.rds.amazonaws.com
     - TYPEORM_PORT: 5432
     - TYPEORM_USERNAME: postgres
     - TYPEORM_PASSWORD: Nandhubabu11
     - TYPEORM_DATABASE: postgres
-    - TYPEORM_MIGRATIONS: /home/ubuntu/src/migrations/*.ts
-    - TYPEORM_MIGRATIONS_DIR: /home/ubuntu/src/migrations
+    - TYPEORM_MIGRATIONS: ./src/migrations/*.ts
+    - TYPEORM_MIGRATIONS_DIR: ./src/migrations
 
   shell: |
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -

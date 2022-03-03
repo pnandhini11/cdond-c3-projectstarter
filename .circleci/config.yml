@@ -314,7 +314,7 @@ jobs:
           name: Deploy backend
           command: |
             cd backend
-
+            mv node_modules dist
             echo NODE_ENV=production >> "dist/.env"
             echo ENVIRONMENT=production >> "dist/.env"
             echo VERSION=1 >> "dist/.env"

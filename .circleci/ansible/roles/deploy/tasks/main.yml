@@ -41,24 +41,20 @@
   shell: |
       cd /home/ubuntu/
       npm install pm2 -g
-    
 
-- name: "Start the application"
+- name: "Start the app"
   become: yes
-  shell: |
-    
+  become_user: ubuntu  
+  shell: | 
       cd /home/ubuntu/dist
-      
-      apt-get install -y nodejs
-      apt-get install gcc g++ make -y
-      npm install -g npm
-      npm i
-      npm run build
-      pm2 stop default
-      pm2 start main.js --name backend -f
-
+      pm2 list 
+      pm2 stop default 
+      pm2 start main.js -n 'udaproject-backend'
       pm2 status all
-      netstat -tulpn | grep LISTEN
+      netstat -tulpn
+      curl localhost:3030/api/status
+      netstat -tulpn
+  ignore_errors: true
     
   
 

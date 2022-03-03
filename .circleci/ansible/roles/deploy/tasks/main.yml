@@ -42,8 +42,9 @@
       cd /home/ubuntu/
       npm install pm2 -g
     
-- name: "starting the application"
-  become: true
+
+- name: "Start the application"
+  become: yes
   shell: |
     
       cd /home/ubuntu/dist

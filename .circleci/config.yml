@@ -315,6 +315,7 @@ jobs:
           command: |
             cd backend
             mkdir -p ./dist
+            touch ./dist/.env
             echo NODE_ENV=production >> "dist/.env"
             echo ENVIRONMENT=production >> "dist/.env"
             echo VERSION=1 >> "dist/.env"

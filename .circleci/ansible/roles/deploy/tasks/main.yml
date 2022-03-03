@@ -42,37 +42,6 @@
       cd /home/ubuntu/
       npm install pm2 -g
     
-- name: "start the application"
-  become: true
 
-  environment:
-    - NODE_ENV: production
-    - TYPEORM_CONNECTION: postgres
-    - TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
-    - TYPEORM_HOST:  database-1.cfhorryrv8tp.us-east-1.rds.amazonaws.com
-    - TYPEORM_PORT: 5432
-    - TYPEORM_USERNAME: postgres
-    - TYPEORM_PASSWORD: Nandhubabu11
-    - TYPEORM_DATABASE: postgres
-    - TYPEORM_MIGRATIONS: ./src/migrations/*.ts
-    - TYPEORM_MIGRATIONS_DIR: ./src/migrations
-
-  shell: |
-      
-      cd /home/ubuntu/dist
-
-      apt-get install -y nodejs
-      apt-get install gcc g++ make -y
-      npm install -g npm
-
-      npm i
-
-      npm run build
-      pm2 stop default
-      pm2 start main.js --name backend -f
-
-      pm2 status all
-      netstat -tulpn | grep LISTEN
-  
   
 

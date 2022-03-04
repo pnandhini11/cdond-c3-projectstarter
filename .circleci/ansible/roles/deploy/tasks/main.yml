@@ -47,14 +47,11 @@
   become_user: root  
   shell: | 
       cd /home/ubuntu/dist
-      apt-get install -y nodejs
-      apt-get install gcc g++ make -y
-      npm install -g npm
-      npm i
+
       pm2 list 
       pm2 stop default 
       pm2 start main.js --name backend -f 
-      pm2 status all
+ 
       netstat -tulpn | grep LISTEN
       curl localhost:3030/api/status
     

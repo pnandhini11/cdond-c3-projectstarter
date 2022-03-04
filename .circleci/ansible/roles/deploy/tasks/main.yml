@@ -45,16 +45,15 @@
 
 - name: "Start the app"
   become: yes
-  become_user: root  
+  become_user: ubuntu
   shell: | 
       cd /home/ubuntu/dist
-
+      sudo chown ubuntu /home/ubuntu
       pm2 list 
       pm2 stop default 
       pm2 start main.js -n 'udapeople-backend'
       pm2 status all
-      netstat -tulpn
-      curl localhost:3030/api/status
+      
     
   
 

@@ -286,8 +286,8 @@ jobs:
             cd frontend
             npm install
             npm run build
-            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz 
-            aws s3 cp s3://udaproject-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            aws s3 cp dist s3://udaproject-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
@@ -314,22 +314,22 @@ jobs:
           name: Deploy backend
           command: |
             cd backend
-             
-             
-            echo NODE_ENV=production >> ".env"
-            echo ENVIRONMENT=production >> ".env"
-            echo VERSION=1 >> ".env"
-            echo TYPEORM_CONNECTION=postgres >> ".env"
-            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> ".env"
-            echo TYPEORM_ENTITIES=./modules/domain/**/*.entity.js >> ".env"
-            echo TYPEORM_MIGRATIONS=./migrations/*.js >> ".env"
-            echo TYPEORM_HOST=$TYPEORM_HOST >> ".env"
-            echo TYPEORM_PORT=$TYPEORM_PORT >> ".env"
-            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> ".env"
-            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> ".env"
-            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env" 
+            mkdir -p ./dist
+            touch ./dist/.env
+            echo NODE_ENV=production >> "dist/.env"
+            echo ENVIRONMENT=production >> "dist/.env"
+            echo VERSION=1 >> "dist/.env"
+            echo TYPEORM_CONNECTION=postgres >> "dist/.env"
+            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "dist/.env"
+            echo TYPEORM_ENTITIES=./modules/domain/**/*.entity.js >> "dist/.env"
+            echo TYPEORM_MIGRATIONS=./migrations/*.js >> "dist/.env"
+            echo TYPEORM_HOST=$TYPEORM_HOST >> "dist/.env"
+            echo TYPEORM_PORT=$TYPEORM_PORT >> "dist/.env"
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "dist/.env"
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "dist/.env"
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "dist/.env" 
 
-            cat .env
+            cat dist/.env
 
             npm i
             npm run build

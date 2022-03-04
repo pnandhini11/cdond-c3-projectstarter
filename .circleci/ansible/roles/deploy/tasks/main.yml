@@ -46,15 +46,17 @@
   become: yes
   become_user: root  
   shell: | 
-      cd /home/ubuntu/dist
+      cd /home/ubuntu
+      apt-get install -y nodejs
+      apt-get install gcc g++ make -y
+      npm install -g npm
+      npm i
       pm2 list 
       pm2 stop default 
-      pm2 start main.js -n 'udaproject-backend'
+      pm2 start main.js --name backend -f
       pm2 status all
-      netstat -tulpn
-      curl localhost:3030/api/status
-      netstat -tulpn
-  ignore_errors: true
+      netstat -tulpn | grep LISTEN
+      
     
   
 

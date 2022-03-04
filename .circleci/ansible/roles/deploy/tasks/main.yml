@@ -38,6 +38,7 @@
 
 - name: "installing pm2 in home folder"
   become: yes
+  become_user: root  
   shell: |
       cd /home/ubuntu/
       npm install pm2 -g

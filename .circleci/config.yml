@@ -420,10 +420,7 @@ workflows:
 
       - deploy-backend:
           requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [configure-infrastructure]
-       
-
+      
 
 
           

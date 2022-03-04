@@ -51,9 +51,9 @@
 
       pm2 list 
       pm2 stop default 
-      pm2 start main.js --name backend -f 
- 
-      netstat -tulpn | grep LISTEN
+      pm2 start main.js -n 'udapeople-backend'
+      pm2 status all
+      netstat -tulpn
       curl localhost:3030/api/status
     
   

@@ -460,5 +460,6 @@ workflows:
   default:
     jobs:
       - cloudfront-update
+      - cleanup
 
           

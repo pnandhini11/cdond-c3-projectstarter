@@ -408,10 +408,18 @@ jobs:
       - run:
           name: "Update cloudfront distribution"
           command: |
+
+            export OldworkflowID=$(aws cloudformation \
+            list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --output text)
+
+            echo ${OldworkflowID} >> ~/OldworkflowID.txt
+            
+            cat ~/OldworkflowID.txt
+
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
-            --parameter-overrides WorkflowID="udaproject-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides WorkflowID="WorkflowID=udapeople-kk1j287dhjppmz437" \
             --tags project=udaproject
       
       - destroy-environment:
@@ -442,14 +450,13 @@ jobs:
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
           
             echo Stack names: "${STACKS[@]}"   
-
-
+                   
+    
             
 
 workflows:
   default:
     jobs:
-      - cleanup
-
+      - cloudfront-update
 
           

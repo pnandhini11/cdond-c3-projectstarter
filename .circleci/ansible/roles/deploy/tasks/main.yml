@@ -51,7 +51,7 @@
       sudo chown ubuntu /home/ubuntu
       pm2 list 
       pm2 stop default 
-      pm2 start main.js -n 'udapeople-backend'
+      pm2 start main.js -n 'udaproject-backend'
       pm2 status all
       
     

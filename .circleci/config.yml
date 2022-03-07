@@ -414,7 +414,7 @@ jobs:
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
-            --parameter-overrides WorkflowID="WorkflowID=udaproject-kk1j287dhjppmz437" \
+            --parameter-overrides WorkflowID="udaproject-kk1j287dhjppmz437" \
             --tags project=udaproject
 
             export OldworkflowID=$(aws cloudformation \

@@ -410,8 +410,7 @@ jobs:
           command: |
 
 
-            aws cloudformation describe-stack-events --stack-name InitialStack
-
+            
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \

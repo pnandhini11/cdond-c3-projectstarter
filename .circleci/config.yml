@@ -344,7 +344,7 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
-            export ANSIBLE_DEBUG=1
+             
             ansible-playbook -i inventory.txt deploy-backend.yml
 
       - destroy-environment:

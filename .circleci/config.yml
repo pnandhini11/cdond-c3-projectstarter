@@ -406,7 +406,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            - run: yum install -y tar gzip git openssh-client
+            yum install -y tar gzip git openssh-client
       - run:
           name: "Update cloudfront distribution"
           command: |

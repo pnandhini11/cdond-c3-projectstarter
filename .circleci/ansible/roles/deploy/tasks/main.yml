@@ -5,6 +5,12 @@
     state: directory
 
 - name: creating a destination folder
+  become: true
+  become_user: ubuntu
+  shell: | 
+      cd /home/ubuntu/
+      sudo chown ubuntu /home/ubuntu
+      sudo chown root /home/ubuntu
   file:
     path: /home/ubuntu/dist
     state: directory
@@ -45,7 +51,7 @@
 
 - name: "Start the app"
   become: yes
-  become_user: root
+  become_user: ubuntu
   shell: | 
       cd /home/ubuntu/dist
       sudo chown ubuntu /home/ubuntu

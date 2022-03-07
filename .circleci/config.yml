@@ -420,7 +420,7 @@ jobs:
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
-            --parameter-overrides WorkflowID="udaproject-kk1j287dhjppmz437" \
+            --parameter-overrides WorkflowID="udaproject-${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udaproject
 
             

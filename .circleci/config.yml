@@ -414,7 +414,7 @@ jobs:
 
             echo ${OldworkflowID} >> ~/oldid.txt
 
-            cat .circleci/ansible/oldid.txt
+            cat ~/oldid.txt
  
             
             aws cloudformation deploy \

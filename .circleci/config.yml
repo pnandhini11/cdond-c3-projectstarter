@@ -408,7 +408,7 @@ jobs:
           command: |
             - run: yum install -y tar gzip git openssh-client
       - run:
-          name: Update cloudfront distribution
+          name: "Update cloudfront distribution"
           command: |
               aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \

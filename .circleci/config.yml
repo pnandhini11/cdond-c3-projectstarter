@@ -447,9 +447,8 @@ jobs:
             
             echo OldWorkflowID: "${OldWorkflowID}"
 
-            cd .circleci/ansible/  
 
-            export OldWorkflowID=$(oldworkflowid.txt)
+            export OldWorkflowID=$(<project/.circleci/ansible/oldworkflowid.txt)
             
             
             echo fromworkspace: $(OldWorkflowID)

@@ -461,5 +461,6 @@ workflows:
     jobs:
       - cloudfront-update
       - cleanup
+          requires: [cloudfront-update]
 
           

@@ -4,13 +4,16 @@
     path: /home/ubuntu/webapp
     state: directory
 
-- name: creating a destination folder
+- name: "giving access to user"
   become: true
   become_user: ubuntu
   shell: | 
       cd /home/ubuntu/
       sudo chown ubuntu /home/ubuntu
       sudo chown root /home/ubuntu
+
+- name: "creating a destination folder"
+  become: true
   file:
     path: /home/ubuntu/dist
     state: directory

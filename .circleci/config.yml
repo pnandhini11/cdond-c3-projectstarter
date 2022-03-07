@@ -434,6 +434,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run: yum install -y tar gzip git openssh-client
       - attach_workspace:
           at: ~/
       - run:

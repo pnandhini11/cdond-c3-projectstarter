@@ -435,7 +435,7 @@ jobs:
     steps:
       - checkout
       - run: yum install -y tar gzip git openssh-client
-      - run: apt-get install -y sudo
+      - run: yum install -y sudo
       - attach_workspace:
           at: ~/
       - run:

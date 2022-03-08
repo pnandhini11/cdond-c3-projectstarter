@@ -447,11 +447,12 @@ jobs:
             
             echo OldID: "${OldWorkflowID}"
 
+            cat ~/oldid.txt 
 
             export OldWorkflowID=$(<~/oldid.txt)
             
-            cat ~/oldid.txt
             
+
             echo fromworkspace: $(OldWorkflowID)
 
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \

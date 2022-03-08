@@ -426,7 +426,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - oldid.txt      
+            - project/.circleci/ansible/oldid.txt      
   
 
   cleanup:
@@ -447,9 +447,11 @@ jobs:
             
             echo OldID: "${OldWorkflowID}"
 
-            cat ~/oldid.txt 
+            cat project/.circleci/ansible/oldid.txt 
 
-            export OldWorkflowID=$(~/oldid.txt)
+            cd project/.circleci/ansible
+
+            export OldWorkflowID=$(oldid.txt)
             
             
 

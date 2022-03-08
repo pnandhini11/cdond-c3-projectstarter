@@ -447,13 +447,10 @@ jobs:
             
             echo OldID: "${OldWorkflowID}"
 
-            cd .circleci/ansible
 
-
-            cat oldid.txt 
-
+            cat .circleci/ansible/oldid.txt
             
-            export OldWorkflowID=$(oldid.txt)
+            export OldWorkflowID=$(.circleci/ansible/oldid.txt)
             
             
 

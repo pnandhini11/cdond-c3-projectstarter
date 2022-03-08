@@ -456,12 +456,6 @@ jobs:
 
             echo $oldworkflowid
 
-            export OldWorkflowID=$(~/project/.circleci/ansible/oldid.txt)
-            
-            
-
-            echo fromworkspace: $(OldWorkflowID)
-
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
           

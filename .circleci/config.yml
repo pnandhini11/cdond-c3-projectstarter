@@ -450,7 +450,7 @@ jobs:
 
             cd .circleci/ansible/
 
-            cat root/project/.circleci/ansible/oldid.txt
+            cat ~/project/.circleci/ansible/oldid.txt
 
             export OldWorkflowID=$(oldid.txt)
             

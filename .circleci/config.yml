@@ -412,9 +412,9 @@ jobs:
             export OldworkflowID=$(aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --output text)
 
-            echo ${OldworkflowID} >> ~/oldid.txt
+            echo ${OldworkflowID} >> project/.circleci/ansible/oldid.txt
 
-            cat ~/oldid.txt
+            cat project/.circleci/ansible/oldid.txt
  
             
             aws cloudformation deploy \

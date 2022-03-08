@@ -437,7 +437,7 @@ jobs:
       - run: yum install -y tar gzip git openssh-client
       - run: yum install -y sudo
       - attach_workspace:
-          at: ~/
+          at: ~/project/.circleci/ansible/
       - run:
           name: Get old stack workflow id
           command: |
@@ -448,10 +448,7 @@ jobs:
             
             echo OldID: "${OldWorkflowID}"
 
-            sudo chown root project/.circleci/ansible/
-            sudo chown ubuntu project/.circleci/ansible/
-
-            cat project/.circleci/ansible/oldid.txt
+            cat oldid.txt
 
             export OldWorkflowID=$(oldid.txt)
             

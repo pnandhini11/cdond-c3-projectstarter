@@ -449,7 +449,7 @@ jobs:
 
             cat ~/oldid.txt 
 
-            export OldWorkflowID=$(<~/oldid.txt)
+            export OldWorkflowID=$(~/oldid.txt)
             
             
 

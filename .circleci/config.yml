@@ -446,13 +446,8 @@ jobs:
             --no-paginate --output text)
             
             echo OldID: "${OldWorkflowID}"
-
-            sudo chown root .circle/ansible
-            sudo chown ubuntu .circle/ansible
             
-            cat .circleci/ansible/oldid.txt
-            
-            export OldWorkflowID=$(.circleci/ansible/oldid.txt)
+            export OldWorkflowID=$(project/.circleci/ansible/oldid.txt)
             
             
 

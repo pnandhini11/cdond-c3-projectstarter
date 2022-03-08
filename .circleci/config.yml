@@ -446,8 +446,9 @@ jobs:
             --no-paginate --output text)
             
             echo OldID: "${OldWorkflowID}"
-            
-            export OldWorkflowID=$(project/.circleci/ansible/oldid.txt)
+            cd .circleci/ansible/  
+            cat oldid.txt
+            export OldWorkflowID=$(oldid.txt)
             
             
 

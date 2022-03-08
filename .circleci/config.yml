@@ -452,7 +452,7 @@ jobs:
 
             cat ~/project/.circleci/ansible/oldid.txt
 
-            oldworkflowid = $(cat ~/project/.circleci/ansible/oldid.txt)
+            export oldworkflowid = $(cat ~/project/.circleci/ansible/oldid.txt)
 
             echo $oldworkflowid
 

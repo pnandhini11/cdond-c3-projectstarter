@@ -15,11 +15,6 @@
     src: artifact.tar.gz
     dest: /home/ubuntu/
 
-- name: "extract zipped artifact into ec2 instance"
-  become: yes
-  unarchive:
-    src: artifact.tar.gz
-    dest: /home/ubuntu/
   
 - name: "install dependencies."
   become: yes

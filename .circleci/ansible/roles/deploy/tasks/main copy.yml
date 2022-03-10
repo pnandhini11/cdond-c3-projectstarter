@@ -9,6 +9,11 @@
     path: /home/ubuntu/dist
     state: directory
 
+- name: creating a destination folder
+  file:
+    path: /home/ubuntu/dist
+    state: directory
+
 - name: "Copy files to server"
   become: true
   copy:

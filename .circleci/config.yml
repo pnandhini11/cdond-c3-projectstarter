@@ -464,17 +464,12 @@ jobs:
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
           
-            echo Stack names: "${STACKS[@]}"   
+            echo Stack_names: "${STACKS[@]}"   
 
             
-                   
-            if [[ "${STACKS[@]}" =~ "$oldworkflowid" ]]
-            then
-              echo "Delete old workflow (${OldWorkflowID})"
-              aws s3 rm "s3://$oldworkflowid" --recursive
-            else
-              echo " Old workflow ($oldworkflowid) not availble to delete"
-            fi
+            echo "Delete old workflow (${OldWorkflowID})"
+            aws s3 rm "s3://$oldworkflowid" --recursive
+
             
 
 workflows:

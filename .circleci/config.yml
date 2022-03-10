@@ -420,7 +420,7 @@ jobs:
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
-            --parameter-overrides WorkflowID="udaproject-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter-overrides WorkflowID="udaproject-kk1j287dhjppmz437" \
             --tags project=udaproject
 
       - persist_to_workspace:
@@ -462,7 +462,7 @@ jobs:
             echo $oldworkflowid
 
             
-            echo "Delete old workflow (${OldWorkflowID})"
+            echo "Delete old workflow ($oldworkflowid)"
             aws s3 rm "s3://$oldworkflowid" --recursive
 
             
@@ -471,33 +471,6 @@ workflows:
   default:
     jobs:
 
-      - build-frontend
-      - build-backend
-
-      - test-frontend:
-          requires:  [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - scan-backend:
-          requires: [build-backend]
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend,scan-frontend, scan-backend]
-          filters:
-            branches:
-              only: [master]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]
-      - cloudfront-update:
-          requires: [smoke-test]
+      - cloudfront-update
       - cleanup:
           requires: [cloudfront-update]

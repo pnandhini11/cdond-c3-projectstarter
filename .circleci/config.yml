@@ -415,7 +415,6 @@ jobs:
             echo ${OldworkflowID} >> .circleci/ansible/oldid.txt
 
             cat .circleci/ansible/oldid.txt
- 
             
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
@@ -441,8 +440,10 @@ jobs:
       - checkout
       - run: yum install -y tar gzip git openssh-client
       - run: yum install -y sudo
+
       - attach_workspace:
           at: ~/
+
       - run:
           name: Get old stack workflow id
           command: |
@@ -474,7 +475,6 @@ workflows:
     jobs:
       - build-frontend
       - build-backend
-
       - test-frontend:
           requires:  [build-frontend]
       - test-backend:

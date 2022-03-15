@@ -472,4 +472,4 @@ workflows:
     jobs:
 
 
-      - cloudfront-update:
+      - cloudfront-update
